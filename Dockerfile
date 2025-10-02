@@ -4,6 +4,11 @@ FROM python:3.9-slim
 # Set the working directory in the container
 WORKDIR /app
 
+# --- THIS IS THE MISSING PART ---
+# Update package lists and install the git command-line tool
+RUN apt-get update && apt-get install -y git
+# --------------------------------
+
 # Copy the requirements file into the container
 COPY requirements.txt .
 
