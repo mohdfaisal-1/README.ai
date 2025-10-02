@@ -70,13 +70,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }).catch(err => console.error('Failed to copy text: ', err));
     });
 
-    // Add functionality to example links
     exampleLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             repoUrlInput.value = link.dataset.url;
-            // Optionally, trigger generation automatically
-            // handleGeneration();
         });
     });
+
+    // --- NEW CODE ADDED HERE ---
+    // Listen for the 'Enter' key press on the input field
+    repoUrlInput.addEventListener('keydown', (event) => {
+        // Check if the key pressed was 'Enter'
+        if (event.key === 'Enter') {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+            // Trigger the generation function
+            handleGeneration();
+        }
+    });
+    // ---------------------------
 });
