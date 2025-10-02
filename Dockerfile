@@ -13,5 +13,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of your app's code into the container
 COPY . .
 
-# Command to run the application using Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:10000", "app:app"]
+# Command to run the application using Gunicorn on the port provided by Render
+CMD gunicorn --bind 0.0.0.0:${PORT} app:app
