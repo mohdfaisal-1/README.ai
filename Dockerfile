@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Command to run the application using Gunicorn on the port provided by Render
-CMD gunicorn --bind 0.0.0.0:${PORT} --timeout 120 app:app
+CMD gunicorn --bind 0.0.0.0:${PORT} --timeout 180 app:app
