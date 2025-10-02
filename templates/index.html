@@ -3,23 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>README.ai Generator</title>
+    <title>README.ai | AI-Powered Documentation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --background-color: #1a1a2e;
-            --container-bg: #16213e;
-            --primary-accent: #0f3460;
-            --secondary-accent: #e94560;
-            --text-color: #e0e0e0;
-            --border-color: rgba(255, 255, 255, 0.1);
+            --bg-color: #020617;
+            --glass-bg: rgba(17, 24, 39, 0.5);
+            --border-color: rgba(5, 5, 5, 0.1);
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-color: #7c3aed;
+            --accent-hover: #6d28d9;
+            --error-color: #f43f5e;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
             color: var(--text-color);
             display: flex;
             justify-content: center;
@@ -27,137 +33,178 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            box-sizing: border-box;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .background-aurora {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at top, #1e40af 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom, #7c3aed 0%, transparent 50%);
+            animation: aurora 15s infinite linear;
+            opacity: 0.2;
+        }
+        @keyframes aurora {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .container {
             width: 100%;
             max-width: 800px;
-            background: var(--container-bg);
+            background: var(--glass-bg);
             padding: 40px;
-            border-radius: 15px;
+            border-radius: 16px;
             border: 1px solid var(--border-color);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
             font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 10px;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
 
         p {
-            margin-bottom: 30px;
-            opacity: 0.8;
+            color: var(--text-muted);
+            margin-bottom: 24px;
         }
 
         .input-group {
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         input[type="text"] {
             width: 100%;
-            padding: 15px;
-            background: var(--primary-accent);
+            padding: 14px 16px;
+            background: rgba(30, 41, 59, 0.5);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             color: var(--text-color);
             font-size: 1rem;
-            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-        input[type="text"]::placeholder {
-            color: rgba(224, 224, 224, 0.5);
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
         }
 
+        .example-links {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-bottom: 24px;
+        }
+        .example-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .example-links a:hover {
+            color: var(--accent-color);
+        }
+        
         button#generate-button {
             width: 100%;
-            padding: 15px;
-            background: var(--secondary-accent);
+            padding: 14px;
+            background: var(--accent-color);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1.1rem;
-            font-weight: 500;
+            font-weight: 600;
             transition: background-color 0.3s, transform 0.2s;
         }
         button#generate-button:hover {
-            background-color: #ff5c77;
+            background-color: var(--accent-hover);
             transform: translateY(-2px);
         }
-
+        button#generate-button:disabled {
+            background-color: #334155;
+            cursor: not-allowed;
+        }
+        
         #loader {
             display: none;
             margin: 20px 0;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-        #loader .dot {
-            animation: blink 1.4s infinite both;
-            display: inline-block;
-        }
-        #loader .dot:nth-child(2) { animation-delay: 0.2s; }
-        #loader .dot:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes blink {
-            0% { opacity: 0.2; }
-            20% { opacity: 1; }
-            100% { opacity: 0.2; }
+            color: var(--text-muted);
         }
 
         .output-container {
             text-align: left;
-            margin-top: 30px;
+            margin-top: 24px;
             position: relative;
         }
 
         #output {
-            background-color: var(--primary-accent);
+            background-color: var(--bg-color);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 20px;
-            min-height: 200px;
+            min-height: 150px;
             white-space: pre-wrap;
             word-wrap: break-word;
-            opacity: 0.8;
+            color: var(--text-muted);
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
         }
         
         button#copy-button {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #e94560;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
+            top: 12px;
+            right: 12px;
+            background: #334155;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 6px 12px;
             cursor: pointer;
-            display: none; /* Initially hidden */
-            opacity: 0.7;
-            transition: opacity 0.3s;
+            display: none;
+            opacity: 0.8;
+            transition: opacity 0.3s, background-color 0.3s;
         }
         button#copy-button:hover {
             opacity: 1;
+            background-color: var(--accent-color);
         }
     </style>
 </head>
 <body>
+    <div class="background-aurora"></div>
     <div class="container">
-        <h1>README.ai Generator 🤖</h1>
-        <p>Paste a public GitHub repository URL to auto-generate a professional README file.</p>
+        <h1>README.ai 🤖</h1>
+        <p>Your intelligent assistant for generating professional documentation.</p>
         
         <div class="input-group">
-            <input type="text" id="repo-url-input" placeholder="e.g., https://github.com/facebook/react">
+            <input type="text" id="repo-url-input" placeholder="Paste a public GitHub repository URL...">
         </div>
         
-        <button id="generate-button">Generate README</button>
         
-        <div id="loader">Generating<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
+        <button id="generate-button">✨ Generate README</button>
+        
+        <div id="loader">Analyzing repository and crafting your README...</div>
         
         <div class="output-container">
             <button id="copy-button">Copy</button>
-            <pre id="output"><code>Your generated README will appear here.</code></pre>
+            <pre id="output"><code>The generated README will appear here...</code></pre>
         </div>
     </div>
 

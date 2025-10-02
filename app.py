@@ -16,21 +16,31 @@ def generate_readme_from_summary(summary):
     LLAMA_API_URL = "https://api.cerebras.ai/v1/chat/completions"
 
     prompt = f"""
-You are an expert technical writer specializing in software documentation.
-Based on the following analysis of a code repository, write a complete, professional, and high-quality README.md file.
-The README should be well-structured and include at least the following sections:
-- **Project Title**: A catchy and descriptive title.
-- **Description**: A brief overview of what the project does.
-- **Features**: A bulleted list of key features.
-- **Installation**: How to install and set up the project (use the dependency info).
-- **Usage**: How to run the project.
-- **Contributing**: A short section on how others can contribute.
-Use Markdown for formatting.
----
-Repository Analysis:
+You are "ReadmeBot", an expert AI technical writer and developer assistant. Your mission is to create the highest quality README.md file for the given repository.
+
+**Analysis of the repository is as follows:**
 {summary}
----
-Now, generate the complete README.md file:
+
+**Your Task:**
+Based *only* on the analysis provided, generate a complete, well-structured, and professional README.md file.
+
+**Instructions & Rules:**
+1.  **Structure:** The README must have the following sections:
+    - A short, catchy Project Title.
+    - A "Description" section that explains the project's purpose and what it does.
+    - A "Key Features" section with a bulleted list.
+    - A "Technologies Used" section listing the primary language and key libraries/frameworks found in the analysis.
+    - An "Installation" section with a code block showing the necessary steps. If dependencies are listed, assume they are installed with `pip` or `npm`.
+    - A "Usage" section explaining how to run the application, with a code block if possible.
+2.  **Infer intelligently:**
+    - From the file names and dependencies, infer the project's main purpose. (e.g., if you see Flask and `app.py`, it's a Python web application).
+    - If you see `build.gradle` and `.kt` files, it's an Android application.
+    - Create logical installation and usage steps. If it's a Python app with a `requirements.txt`, the installation is `pip install -r requirements.txt`. If it has an `app.py`, the usage is likely `python app.py`.
+3.  **Be concise and clear:** Use Markdown for formatting (headings, bold text, code blocks, lists). The tone should be professional and welcoming to new developers.
+4.  **Do not invent information:** Base the entire README *only* on the analysis provided above. Do not add features or instructions that cannot be inferred from the context.
+5.  **Formatting:** All section titles **must be level-two Markdown headings (##)** and **must start with a relevant emoji**. For example: "## 🚀 Description", "## 🛠️ Installation", "## ⚙️ Usage".
+
+Now, generate the complete README.md file.
 """
 
     try:
