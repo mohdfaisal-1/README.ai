@@ -1,0 +1,124 @@
+# Readme-AI ✨
+
+## 📖 About the Project
+
+Writing good documentation is essential but often time-consuming. **Readme-AI** was born out of a need to automate and simplify this process. This tool analyzes a given GitHub repository, understands its structure and dependencies, scans all the files automatically, and leverages a Large Language Model (LLM) to generate a high-quality, well-structured `README.md` file.
+
+This project was developed as part of the **FUTURESTACK GENAI HACKATHON**. Our goal was to create a developer tool that boosts productivity and encourages better documentation practices.
+
+### ✨ Key Features
+
+* **Automated Repository Analysis:** Intelligently scans project structure, languages, and dependencies.
+* **AI-Powered Content Generation:** Uses an LLM to write coherent descriptions, installation steps, and usage instructions.
+* **Structured Output:** Creates a professional README with sections like Tech Stack, Features, Installation etc.
+* **Simple Web Interface:** A clean and intuitive UI built with Flask to input a repository URL and get a README in seconds.
+* **Customizable:** The generated markdown can be easily copied and customized to your liking.
+
+---
+
+### Deployed project link 
+- https://readme-ai-faisal.onrender.com
+
+## 🛠️ Tech Stack
+
+This project is built with a modern and efficient technology stack:
+
+* **Backend:** Python, Flask
+* **AI/ML:** Llama API 
+* **Tools:** GitPython 
+* **Frontend:** HTML, CSS, JavaScript
+
+---
+
+## ⚙️ Getting Started
+
+Follow these instructions to get a local copy up and running for development and testing purposes.
+
+### Prerequisites
+
+* Python 3.9 or higher
+* Git installed on your machine
+* An API key from your LLM provider
+
+### Installation
+
+1.  **Clone the repository:**
+    ```sh
+    git clone [https://github.com/mohdfaisal-1/readme-ai.git]
+    cd readme-ai
+    ```
+
+2.  **Create and activate a virtual environment:**
+    * **On macOS/Linux:**
+        ```sh
+        python3 -m venv venv
+        source venv/bin/activate
+        ```
+    * **On Windows:**
+        ```sh
+        python -m venv venv
+        .\venv\Scripts\activate
+        ```
+
+3.  **Install the required dependencies:**
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+4.  **Set up your environment variables:**
+    * Create a copy of the example environment file:
+        ```sh
+        cp .env.example .env
+        ```
+    * Open the `.env` file and add your credentials:
+        ```env
+        # Flask Configuration
+        FLASK_APP=app.py
+        FLASK_ENV=development
+
+        # LLM API Credentials
+        LLAMA_API_URL=YOUR_API_ENDPOINT_URL
+        LLAMA_API_KEY=YOUR_SECRET_API_KEY
+        ```
+
+### Running the Application
+
+1.  **Start the Flask server:**
+    ```sh
+    flask run
+    ```
+
+2.  **Access the application:**
+    Open your web browser and navigate to `http://127.0.0.1:5000`.
+
+---
+
+## Usage
+
+1.  Navigate to the web interface.
+2.  Paste the URL of the public GitHub repository you want to generate a README for.
+3.  Click the "Generate" button or press "Enter".
+4.  Wait for the AI to process the repository and generate the markdown content.
+5.  Copy the generated markdown and use it in your project!
+
+---
+
+## 🤝 Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
+---
+
+
+## 🙏 Acknowledgments & Authors
+
+* **Mohd Faisal** - (https://github.com/mohdfaisal-1)
+  
