@@ -1,22 +1,13 @@
-# Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
-# Set the working directory in the container
 WORKDIR /app
 
-# --- THIS IS THE MISSING PART ---
-# Update package lists and install the git command-line tool
 RUN apt-get update && apt-get install -y git
-# --------------------------------
 
-# Copy the requirements file into the container
 COPY requirements.txt .
 
-# Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of your app's code into the container
 COPY . .
 
-# Command to run the application using Gunicorn on the port provided by Render
 CMD gunicorn --bind 0.0.0.0:${PORT} --timeout 120 app:app

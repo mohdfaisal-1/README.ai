@@ -7,7 +7,6 @@ from analyzer import analyze_repo
 app = Flask(__name__)
 
 LLAMA_API_KEY = "csk-dkfhp4fxtnp2x8h95cf555hvmk3924vm99cfwvkt8229v9p2"
-# Note: We don't need the global LLAMA_API_URL here since it's defined in the function.
 
 def generate_readme_from_summary(summary):
     """
@@ -50,7 +49,7 @@ Now, generate the complete README.md file.
         }
         
         data = {
-            "model": "llama-4-scout-17b-16e-instruct",
+            "model": "llama-3.3-70b",
             "messages": [
                 {
                     "content": prompt,
@@ -74,7 +73,6 @@ Now, generate the complete README.md file.
             print(f"Response Body: {e.response.text}")
         return "Error: Failed to communicate with the AI model."
 
-# --- FIX IS HERE: These lines must NOT be indented ---
 
 @app.route('/')
 def index():
@@ -90,7 +88,7 @@ def generate():
     """
     try:
         data = request.get_json()
-        repo_url = data.get('repo_url') # Use .get() for safety
+        repo_url = data.get('repo_url')
 
         if not repo_url:
             return jsonify({"error": "Repository URL is required."}), 400

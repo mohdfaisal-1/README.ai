@@ -10,7 +10,6 @@ def remove_readonly(func, path, _):
 
 def generate_directory_tree(startpath):
     tree = []
-    # Exclude venv and other common unnecessary folders from the tree
     exclude_dirs = ['.git', 'venv', '__pycache__', 'node_modules']
     for root, dirs, files in os.walk(startpath):
         dirs[:] = [d for d in dirs if d not in exclude_dirs]
@@ -36,7 +35,6 @@ def analyze_repo(repo_url):
         print("✅ Clone successful!")
         
         summary_parts = []
-        # --- NEW: Variable to hold old README content ---
         old_readme_content = None
         language_extensions = {".py": 0, ".js": 0, ".java": 0, ".kt": 0, ".xml": 0, ".html": 0}
 
@@ -47,22 +45,18 @@ def analyze_repo(repo_url):
             for file in files:
                 file_path = os.path.join(root, file)
                 
-                # --- NEW: Find and read the existing README.md ---
                 if file.lower() == 'readme.md':
                     try:
                         with open(file_path, 'r', encoding='utf-8') as f:
                             old_readme_content = f.read()
                     except Exception as e:
                         print(f"Could not read README.md: {e}")
-                # --------------------------------------------------
 
                 _, ext = os.path.splitext(file)
                 if ext in language_extensions:
                     language_extensions[ext] += 1
                 
-                # (The rest of the file analysis logic remains the same)
                 if file == 'requirements.txt':
-                    # ... (rest of the analysis logic)
                     pass
 
         primary_language = max(language_extensions, key=language_extensions.get, default="N/A")
@@ -73,7 +67,6 @@ def analyze_repo(repo_url):
 
         unique_summary_parts = list(dict.fromkeys(summary_parts))
         
-        # --- NEW: Return a dictionary with both analysis and old readme ---
         return {
             "analysis_summary": "\n\n".join(unique_summary_parts),
             "old_readme": old_readme_content
