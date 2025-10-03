@@ -16,6 +16,15 @@ This project was developed as part of the **FUTURESTACK GENAI HACKATHON**. Our g
 
 ---
 
+
+## 🚀 Demo
+
+<p align="center">
+  <img src="D:\Faisal\Videos\Screen Recordings\Screen Recording 2025-10-03 154144.mp4" alt="Project Demo GIF" width="800"/>
+</p>
+
+---
+
 ### Deployed project link 
 - https://readme-ai-faisal.onrender.com
 
