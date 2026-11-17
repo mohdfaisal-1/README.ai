@@ -6,7 +6,7 @@ from analyzer import analyze_repo
 
 app = Flask(__name__)
 
-LLAMA_API_KEY = "csk-dkfhp4fxtnp2x8h95cf555hvmk3924vm99cfwvkt8229v9p2"
+LLAMA_API_KEY = os.getenv("LLAMA_API_KEY", "")
 
 def generate_readme_from_summary(summary):
     """
